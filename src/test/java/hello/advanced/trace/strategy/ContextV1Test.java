@@ -41,7 +41,7 @@ public class ContextV1Test {
   }
 
   @Test
-  void templateMethodV2(){
+  void templateMethodV2() {
     AbstractTemplate template1 = new AbstractTemplate() {
       @Override
       protected void call() {
@@ -52,7 +52,7 @@ public class ContextV1Test {
   }
 
   @Test
-  void strategyV1(){
+  void strategyV1() {
     Strategy strategyLogic1 = new StrategyLogic1();
     ContextV1 contextV1 = new ContextV1(strategyLogic1);
     contextV1.execute();
@@ -60,5 +60,18 @@ public class ContextV1Test {
     Strategy strategyLogic2 = new StrategyLogic2();
     ContextV1 contextV2 = new ContextV1(strategyLogic2);
     contextV2.execute();
+  }
+
+  @Test
+  void strategyV2() {
+    Strategy strategy = () -> log.info("business logic 1");
+    ContextV1 contextV1 = new ContextV1(strategy);
+    contextV1.execute();
+  }
+
+  @Test
+  void strategyV3() {
+    ContextV1 contextV1 = new ContextV1(() -> log.info("business logic 1"));
+    contextV1.execute();
   }
 }
